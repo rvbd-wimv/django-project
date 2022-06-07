@@ -14,3 +14,9 @@ docker-compose build
 docker-compose up --force-recreate
 ```
 
+Request an infinity token
+```
+curl -X POST http://127.0.0.1:8000/api-token-auth/  \
+-H "Content-Type: application/json"  \
+-d '{"username":"someusername","password":"somepass"}'
+```
