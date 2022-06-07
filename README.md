@@ -1,4 +1,6 @@
 # django-project
+# keeping django-secret for test environment - replace it if needed
+
 clone it and build it 
 ```
 docker-compose build
