@@ -1,0 +1,66 @@
+version: "3.9"
+
+services:
+
+  nginx:
+    build: ./nginx
+    container_name: m_nginx
+    depends_on:
+      - web
+    ports:
+      - "80:80"
+    networks:
+      dj_net:
+        ipv4_address: 172.19.0.4
+
+
+  web:
+    build: ./django
+    container_name: dj-backend
+    depends_on:
+      db:
+        condition: "service_healthy"
+    environment:
+      - db_host=${db_host}
+      - db_name=${db_name}
+      - db_user=${db_user}
+      - db_pass=${db_pass}
+      - DJANGO_SUPERUSER_PASSWORD=${dj_user}
+      - DJANGO_SUPERUSER_EMAIL=${dj_email}
+      - DJANGO_SUPERUSER_USERNAME=${dj_user}
+    ports:
+      - '8000:8000'
+    networks:
+      dj_net:
+        ipv4_address: 172.19.0.3
+
+  db:
+    container_name: my_db
+    image: "postgres:14.3"
+    healthcheck:
+      test: [ "CMD", "psql", "-U", "${db_user}", "-d", "${db_name}"]
+      interval: 5s
+      timeout: 10s
+      retries: 10
+    restart: always
+    environment:
+      - POSTGRES_DB=${db_name}
+      - POSTGRES_USER=${db_user}
+      - POSTGRES_PASSWORD=${db_pass}
+    volumes:
+      - vol_db:/var/lib/postgresql/data
+    networks:
+      dj_net:
+        ipv4_address: 172.19.0.2
+
+volumes:
+  vol_db:
+    driver: local
+
+networks:
+  dj_net:
+    driver: bridge
+    ipam:
+     config:
+       - subnet: 172.19.0.0/24
+         gateway: 172.19.0.1
