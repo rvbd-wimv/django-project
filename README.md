@@ -11,7 +11,7 @@ remove and rebuild it
 ```
 docker-compose down
 docker volume ls 
-docker volume rm django.....
+docker volume rm django-project_vol_db
 docker-compose build
 docker-compose up --force-recreate
 ```
