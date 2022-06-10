@@ -3,6 +3,7 @@
 
 clone it (git clone) and build it 
 ```
+git clone -b oauth2 https://github.com/rvbd-wimv/django-project.git
 docker-compose up --build
 ```
 
