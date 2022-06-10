@@ -23,7 +23,6 @@ docker volume rm django-project_vol_db
 docker-compose up --build --force-recreate
 ```
 
-step 1 - change the .env file with the correct values
 step 2 - create application via the admin interface
 
 step 3 - request a access_token with scope
