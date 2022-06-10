@@ -4,6 +4,14 @@
 clone it (git clone) and build it 
 ```
 git clone -b oauth2 --single-branch https://github.com/rvbd-wimv/django-project.git
+```
+
+Change the .env variables
+```
+vi .env
+```
+Build the dockercompose
+```
 docker-compose up --build
 ```
 
