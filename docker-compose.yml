@@ -27,7 +27,7 @@ services:
       - db_name=${db_name}
       - db_user=${db_user}
       - db_pass=${db_pass}
-      - DJANGO_SUPERUSER_PASSWORD=${dj_user}
+      - DJANGO_SUPERUSER_PASSWORD=${dj_pass}
       - DJANGO_SUPERUSER_EMAIL=${dj_email}
       - DJANGO_SUPERUSER_USERNAME=${dj_user}
     ports:
