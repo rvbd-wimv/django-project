@@ -1,22 +1,31 @@
 from django.shortcuts import render
 
-from rest_framework import viewsets
-from django.contrib.auth.models import User
+from rest_framework import viewsets, permissions
+from django.contrib.auth.models import User, Group
 
-from m_api.serializers import UserSerializer, CustomerSerializer, CustomerTypeSerializer
+from m_api.serializers import UserSerializer, GroupSerializer, CustomerSerializer, CustomerTypeSerializer
 from m_api.models import Customer, CustomerType
 
+
+from oauth2_provider.contrib.rest_framework import TokenHasScope
 # Create your views here.
 
 
 class UserViewSet(viewsets.ModelViewSet):
-   queryset = User.objects.all()
-   serializer_class = UserSerializer
+    permission_classes = [TokenHasScope]
+    required_scopes = ['users']
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+
 
 class CustomerViewSet(viewsets.ModelViewSet):
-   queryset = Customer.objects.all()
-   serializer_class = CustomerSerializer
+    permission_classes = [TokenHasScope]
+    required_scopes = ['customers']
+    queryset = Customer.objects.all()
+    serializer_class = CustomerSerializer
 
 class CustomerTypeViewSet(viewsets.ModelViewSet):
-   queryset = CustomerType.objects.all()
-   serializer_class = CustomerTypeSerializer
+    permission_classes = [TokenHasScope]
+    required_scopes = ['customers']
+    queryset = CustomerType.objects.all()
+    serializer_class = CustomerTypeSerializer
