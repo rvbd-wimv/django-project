@@ -1,24 +1,31 @@
 # django-project
-# keeping django-secret for test environment - replace it if needed
+### keeping django-secret for test environment - replace it if needed
 
-clone it and build it 
+clone it (git clone) and build it 
 ```
-docker-compose build
-docker-compose up
+docker-compose up --build
 ```
 
-remove and rebuild it
+remove and rebuild it usefull commmands
 ```
 docker-compose down
 docker volume ls 
 docker volume rm django-project_vol_db
-docker-compose build
-docker-compose up --force-recreate
+docker-compose up --build --force-recreate
 ```
 
-Request an infinity token
+step 1 - change the .env file with the correct values
+step 2 - create application via the admin interface
+
+step 3 - request a access_token with scope
 ```
-curl -X POST http://127.0.0.1:8000/api-token-auth/  \
--H "Content-Type: application/json"  \
--d '{"username":"someusername","password":"somepass"}'
+curl -X POST \
+-H "Content-Type: application/x-www-form-urlencoded" \
+-d "grant_type=client_credentials" \
+-d "client_id=someclientid" \
+-d "client_secret=someclientsecret" \
+-d "scope=customers" \
+http://127.0.0.1/oauth2/token/
 ```
+
+Scopes: users, customers
